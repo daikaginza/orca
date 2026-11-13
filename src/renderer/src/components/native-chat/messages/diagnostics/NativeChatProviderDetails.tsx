@@ -50,18 +50,37 @@ export function NativeChatDetailsDisclosure({
   summary,
   lead,
   trail,
+  className,
   bodyClassName,
+  open,
+  onOpenChange,
   children
 }: {
   summary: string
   lead?: React.ReactNode
   trail?: React.ReactNode
+  className?: string
   bodyClassName?: string
+  /** Given with `onOpenChange` when the reader's choice is kept outside the row. */
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
   children: React.ReactNode
 }): React.JSX.Element {
   return (
-    <details className="group text-xs text-chat-foreground-faint">
-      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md px-2 py-1 font-mono hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+    <details
+      className={cn('group text-xs text-chat-foreground-faint', className)}
+      open={open}
+      onToggle={(event) => {
+        // Mounting already open also fires; only a reader's toggle is a choice.
+        if (event.currentTarget.open !== open) {
+          onOpenChange?.(event.currentTarget.open)
+        }
+      }}
+    >
+      <summary
+        aria-expanded={open}
+        className="flex cursor-pointer list-none items-center gap-2 rounded-md px-2 py-1 font-mono hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
         <span className="transition-transform motion-reduce:transition-none group-open:rotate-90">
           ›
         </span>

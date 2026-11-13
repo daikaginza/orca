@@ -6,6 +6,7 @@ import { splitNativeChatBlocks } from '../../../../../src/shared/native-chat/too
 import { nativeChatToolRunViewedImages } from '../../../../../src/shared/native-chat/tools/native-chat-tool-viewed-images'
 import { selectActiveToolCall } from '../../../../../src/shared/native-chat/tools/native-chat-tool-activity'
 import * as Chat from '../../../../../src/shared/native-chat/native-chat-types'
+import { nativeChatNoticeDisclosureKeys } from '../../../../../src/shared/native-chat/native-chat-notice'
 import {
   isRenderableSubagentGroup,
   withoutSubagentGroupTwins
@@ -320,6 +321,7 @@ function MobileNativeChatMessageImpl({
                 <MobileNativeChatNoticeRow
                   blocks={drawnProse}
                   fontScale={fontScale}
+                  disclosureKeys={nativeChatNoticeDisclosureKeys(message)}
                   onLongPress={onLongPress}
                 />
               ) : null}
